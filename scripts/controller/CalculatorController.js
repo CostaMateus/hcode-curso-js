@@ -9,19 +9,35 @@ class CalculatorController {
 
         this._currentDateTime;
         this.initialize();
+        this.initButtonsEvents();
     }
 
     initialize()
     {
+        this.setDisplayDateTime();
+
         setInterval( () => {
-            this.displayDate = this.currentDateTime.toLocaleDateString(this._locale, {
-                day: "2-digit",
-                month: "short",
-                year: "numeric"
-            });
-            this.displayTime = this.currentDateTime.toLocaleTimeString(this._locale);
+
+            this.setDisplayDateTime();
 
         }, 1000);
+    }
+
+    initButtonsEvents()
+    {
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+
+        buttons.forEach( (btn, index) => {
+
+            this.addEventListenerAll(btn, "click drag", e => {
+                console.log(btn.className.baseVal.replace('btn-', ''));
+            });
+
+            this.addEventListenerAll(btn, "mouseover mouseup mousedown", e => {
+                btn.style.cursor = "pointer";
+            });
+
+        });
     }
 
     /**
@@ -86,6 +102,26 @@ class CalculatorController {
     set currentDateTime(val)
     {
         this._currentDateTime = val;
+    }
+
+    setDisplayDateTime()
+    {
+        this.displayDate = this.currentDateTime.toLocaleDateString(this._locale, {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+
+        this.displayTime = this.currentDateTime.toLocaleTimeString(this._locale);
+    }
+
+    addEventListenerAll(element, events, fn)
+    {
+        events.split(" ").forEach( ev => {
+
+            element.addEventListener(ev, fn, false);
+
+        });
     }
 
 }
