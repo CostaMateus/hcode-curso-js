@@ -1,4 +1,5 @@
-class CalculatorController {
+class CalculatorController
+{
 
     constructor() {
         // super();
@@ -188,7 +189,7 @@ class CalculatorController {
     {
         this._operation = [];
         this._lastOperator;
-        this._lastNumber;
+        this._lastNumber = 0;
         this.setLastNumberToDisplay();
     }
 
@@ -238,8 +239,6 @@ class CalculatorController {
         }
 
         this.setLastNumberToDisplay();
-
-        // console.log(this._operation);
     }
 
     getLastOperation()
@@ -346,5 +345,4 @@ class CalculatorController {
 
         return lastItem;
     }
-
 }
